@@ -1,0 +1,34 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>production-artifact</id>
+    <formats>
+        <!-- resulting artifact will be a folder with JAR files in it. 
+        As an alternative, we can change that to jar and get one BIG jar file with all resources and dependencies -->
+    
+        <format>jar</format>	
+        </formats>
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>	<!-- do not use the artifact from the packaging module itself -->
+            <outputDirectory>shared</outputDirectory>	<!-- put the dependencies in the shared folder -->
+            <unpack>false</unpack>	<!-- keep them as JAR files instead of unpacking -->
+            <excludes>
+                <exclude>com.learn.multimodule:mm-module1:*</exclude>
+                <exclude>com.learn.multimodule:mm-module2:*</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+    <moduleSets>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>com.learn.multimodule:mm-module2:jar:</include>
+                <include>com.learn.multimodule:mm-module1:jar:</include>	<!-- not specifying common here, because it will be included as a dependency under mod1, mod2-->
+            </includes>
+            <binaries>
+                <unpack>false</unpack>
+                <includeDependencies>false</includeDependencies>
+            </binaries>
+        </moduleSet>
+    </moduleSets>
+</assembly>

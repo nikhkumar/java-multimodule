@@ -29,6 +29,7 @@
   <module>mm-common</module>
   <module>mm-module1</module>
   <module>mm-module2</module>
+  <module>packing-module</module>
   </modules>
 
   <build>
